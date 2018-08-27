@@ -98,22 +98,22 @@ export const actions = {
     await db.ref(state.boardsPath).set([...state.boards,{id,name, memos}]);
     return id;
   },
-  async addMemo(state, getters) {
-    console.log(state.state.memoData); //なぜ？
-    const newMemoData = [...state.state.memoData];
+  async addMemo({state, getters}) { //storeを参照する
+    // console.log(state); //なぜ？
+    const newMemoData = [...state.memoData];
     const lastMemo = newMemoData[newMemoData.length - 1] || { id: 0 };
 
     newMemoData.push({
       id: lastMemo.id + 1,
       left: 20, // 常に一番左に生成することにした
       top: 20,
-      colorIndex: Math.floor(Math.random()*state.state.colorList.length),
+      colorIndex: Math.floor(Math.random()*state.colorList.length),
       text: '',
       zIndex: 0, // 新たに追加した
     });
 
     // state.memoData = newMemoData;
-    db.ref(state.getters.memoPath).set(newMemoData);
+    db.ref(getters.memoPath).set(newMemoData);
   },
 
   
