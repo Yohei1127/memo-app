@@ -1,3 +1,10 @@
+
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: 'memo-app'
+  }
+} : {}
+
 const pkg = require('./package')
 
 module.exports = {
@@ -68,8 +75,9 @@ module.exports = {
     vendor: [
       'firebase'
     ],
-    
-
-  
-  }
+  },
+  generate: {
+    dir: 'docs'
+  },
+  ...routerBase
 }
